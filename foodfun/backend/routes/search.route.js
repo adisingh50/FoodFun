@@ -1,6 +1,4 @@
 const router = require('express').Router();
-const APP_ID = 'd01bf79f';
-const APP_KEY = '09f42c1769e90a857c48712241383fe0';
 const axios = require('axios');
 
 router.route('/:foodName').get((req, res) => {
