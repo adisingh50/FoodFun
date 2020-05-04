@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
+body {
+  background: url('./images/foodfun_bg.jpg') no-repeat center fixed;
+  background-size: cover;
+
+  padding: 100px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.input-area {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.food-search-bar {
+  display: flex;
+  width: 500px;
+  height: 50px;
+  padding-left: 20px;
+  border-radius: 20px;
+  font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search-button {
+  display: flex;
+  height: 50px;
+  margin-left: 10px;
+  border-radius: 20px;
+  font-size: large;
+  float: left;
+}
+
+.food-posts {
+  display: flex;
+  flex-flow: row wrap;
+
 }
