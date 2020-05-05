@@ -2,13 +2,14 @@ body {
   background: url('./images/foodfun_bg.jpg') no-repeat center fixed;
   background-size: cover;
 
-  padding: 100px;
+  padding: 20px;
 }
 
 .input-area {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .food-search-bar {
@@ -32,5 +33,11 @@ body {
 .food-posts {
   display: flex;
   flex-flow: row wrap;
+}
 
+.search-results-text {
+  margin-left: 37%;
+  font-size: 30px;
+  font-style: oblique;
+  font-weight: 800;
 }

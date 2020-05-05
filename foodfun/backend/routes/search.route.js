@@ -4,7 +4,7 @@ var privateVars = require('.././private');
 
 router.route('/:foodName').get((req, res) => {
     axios.get(`https://api.edamam.com/search?q=${req.params.foodName}&app_id=${privateVars.APP_ID}&app_key=${privateVars.APP_KEY}`)
-        .then(response => res.status(200).json(response.data))
+        .then(response => res.status(200).json(response.data.hits))
         .catch(err => res.status(400).json("Error: " + err));
 });
 
