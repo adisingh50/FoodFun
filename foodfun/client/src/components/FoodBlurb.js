@@ -1,60 +1,84 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import '.././stylesheets/FoodBlurb.css';
+import checkMark from ".././images/checkmark.png"
+import clockImg from "../images/clock.png";
 
-const FoodBlurb = (props) => {
-    const getCalories = () => {
-        var cal = props.foodItem.recipe.calories;
+class FoodBlurb extends Component {
+    constructor(props) {
+        super(props);
 
+        this.ingredientList = this.ingredientList.bind(this);
     }
 
-    const getIngredients = () => {
-        var ingArr = props.foodItem.recipe.ingredientLines;
-        ingArr.map(ing => {
-            return <li>{ing}</li>
+    ingredientList() {
+        var charCount = 0;
+        var bulletCount = 0;
+        var finalList = [];
+        var keepRunning = true;
+
+        this.props.foodItem.recipe.ingredientLines.map(ing => {
+            charCount += ing.length;
+            bulletCount++;
+
+            if (keepRunning) {
+                if (charCount <= 530 && bulletCount < 12) {
+                    finalList.push(<li>{ing}</li>)
+                } else {
+                    finalList.push(<li>etc...</li>);
+                    keepRunning = false;
+                }
+            }
         });
+        return finalList;
     }
 
-    const getHealthLabels = () => {
-        var healthList = props.foodItem.recipe.healthLabels;
-        healthList.map(h => {
-            return <li className="health-list-item">{h}</li>
-        })
+    render() {
+        return(
+            <div className="food-item-container">
+                <div className="food-title-container">
+                    <h1 className="food-title">{this.props.foodItem.recipe.label}</h1>
+                </div>
+
+                <div className="time-container">
+                    <img  className="time-image" src={clockImg} alt="clock-icon"/>
+                    <p>{this.props.foodItem.recipe.totalTime} mins</p>
+                </div>
+                
+                <div className="calorie-fat-container">
+                    <p className="cal-label">Calories: {Math.round(this.props.foodItem.recipe.calories / this.props.foodItem.recipe.yield)}</p>
+                    <p className="fat-label">Fat: {Math.round(this.props.foodItem.recipe.totalNutrients.FAT.quantity / this.props.foodItem.recipe.yield)}g</p>
+                    <p className="ps-label">per serving</p>
+                </div>
+    
+                <div className="image-container">
+                    <img src={this.props.foodItem.recipe.image} 
+                        alt="food image here"
+                        className="food-image"></img>
+                </div>
+    
+                <div className="ingredients-container">
+                    <h4>Ingredients:</h4>
+                    <ul>
+                        {this.ingredientList()}
+                    </ul>
+                </div>
+    
+                <div className="click-here-link">
+                    <a href={this.props.foodItem.recipe.url}
+                        target="_blank">Click Here for Full Recipe!</a>
+                </div>
+    
+                <div className="health-label-container">
+                    <ul className="health-ul">
+                        {this.props.foodItem.recipe.healthLabels.map(h => {
+                            return <li className="health-list-item"><img className="check-image"src={checkMark} alt="check"/>
+                                        <strong>{h}</strong></li>
+                        })}
+                    </ul>
+                </div>
+            </div>
+        )
     }
-
-    return(
-        <div className="food-item-container">
-            <h1 className="food-title">{props.foodItem.recipe.label}</h1>
-
-            <div className="calorie-fat-container">
-                <p>Calories: {getCalories()}</p>
-                <p>Fat: {props.foodItem.recipe.totalNutrients.FAT}g</p>
-            </div>
-
-            <div className="image-container">
-                <img src={props.foodItem.recipe.image} 
-                    alt="food image here"
-                    className="food-image"></img>
-            </div>
-
-            <div className="ingredients-container">
-                <h4>Ingredients:</h4>
-                <ul>
-                    {getIngredients()}
-                </ul>
-            </div>
-
-            <div className="click-here-link">
-                <a href={props.foodItem.recipe.url}
-                    target="_blank">Click Here for Full Recipe!</a>
-            </div>
-
-            <div className="health-label-container">
-                <ul>
-                    {getHealthLabels()}
-                </ul>
-            </div>
-        </div>
-    )
 }
 
 export default FoodBlurb;

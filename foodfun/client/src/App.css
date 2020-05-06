@@ -6,9 +6,10 @@ body {
 }
 
 .input-area {
+  position: relative;
+  width: 30%;
+  height: 200px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 30px;
 }
 
@@ -30,6 +31,18 @@ body {
   float: left;
 }
 
+.filter-container {
+  padding: 10px;
+  background-color: floralwhite;
+  position: absolute;
+  bottom: -60px;
+  left: 30px;
+  width: auto;
+  height: 170px;
+  border: 2px solid gray;
+  border-radius: 10px;
+}
+
 .food-posts {
   display: flex;
   flex-flow: row wrap;
@@ -40,4 +53,19 @@ body {
   font-size: 30px;
   font-style: oblique;
   font-weight: 800;
+}
+
+.filter-label {
+  font-size: 12px;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+}
+
+.filter-button {
+  width: fit-content;
+  margin-top: 5px;
 }
