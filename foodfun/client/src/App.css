@@ -31,18 +31,6 @@ body {
   float: left;
 }
 
-.filter-container {
-  padding: 10px;
-  background-color: floralwhite;
-  position: absolute;
-  bottom: -60px;
-  left: 30px;
-  width: auto;
-  height: 170px;
-  border: 2px solid gray;
-  border-radius: 10px;
-}
-
 .food-posts {
   display: flex;
   flex-flow: row wrap;
@@ -55,8 +43,43 @@ body {
   font-weight: 800;
 }
 
-.filter-label {
+.sortby-container {
+  padding: 10px;
+  background-color: floralwhite;
+  position: absolute;
+  bottom: -60px;
+  left: 30px;
+  width: auto;
+  height: 170px;
+  border: 2px solid gray;
+  border-radius: 10px;
+}
+
+.sortby-label {
   font-size: 12px;
+}
+
+.sortby-options {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+}
+
+.sortby-button {
+  width: fit-content;
+  margin-top: 5px;
+}
+
+.filter-container {
+  padding: 10px;
+  background-color: floralwhite;
+  position: absolute;
+  bottom: -60px;
+  right: 70px;
+  width: 250px;
+  height: 170px;
+  border: 2px solid gray;
+  border-radius: 10px;
 }
 
 .filter-options {
@@ -65,7 +88,41 @@ body {
   height: 200px;
 }
 
-.filter-button {
-  width: fit-content;
-  margin-top: 5px;
+.filter-label {
+  font-size: 12px;
+}
+
+.meal-spacing {
+  margin-bottom: 30px;
+}
+
+.minCalEntry {
+  width: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.maxCalEntry {
+  width: 30px;
+}
+
+.minTimeEntry {
+  width: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.maxTimeEntry {
+  width: 30px;
+}
+
+.mealTypeSelector {
+  margin-left: 5px;
+}
+
+.filter-warning {
+  color: red;
+  font-size: 10px;
+  position: relative;
+  bottom: 50px;
 }
