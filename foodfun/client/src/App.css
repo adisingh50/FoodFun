@@ -5,12 +5,39 @@ body {
   padding: 20px;
 }
 
+.big-body {
+  position: relative;
+  padding-left: 7%;
+  height: 100%;
+}
+
+.food-fun-header {
+  position: relative;
+  padding: 10px;
+  background-color: floralwhite;
+  width: 35%;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+.edamam {
+  position: absolute;
+  top: 10%;
+  right: -5%;
+}
+
+.food-fun-header {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .input-area {
   position: relative;
+  bottom: 120px;
+  left: 50%;
   width: 30%;
   height: 200px;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
 }
 
 .food-search-bar {
@@ -48,9 +75,9 @@ body {
   background-color: floralwhite;
   position: absolute;
   bottom: -60px;
-  left: 30px;
+  left: 0px;
   width: auto;
-  height: 170px;
+  height: 80%;
   border: 2px solid gray;
   border-radius: 10px;
 }
@@ -75,9 +102,9 @@ body {
   background-color: floralwhite;
   position: absolute;
   bottom: -60px;
-  right: 70px;
-  width: 250px;
-  height: 170px;
+  right: 0px;
+  width: auto;
+  height: 80%;
   border: 2px solid gray;
   border-radius: 10px;
 }

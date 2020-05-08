@@ -2,6 +2,7 @@ import React, { useState, useEffect, Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import FoodBlurb from './components/FoodBlurb';
+import edamam from "./images/edamam.png"
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,21 @@ class App extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.getFoodItems = this.getFoodItems.bind(this);
     this.isInputNumber = this.isInputNumber.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.foodItem) { //only when we hit the back button from FullPost.js
+      var s = document.getElementById('food-search-bar');
+      s.value = this.props.foodItem.recipe.label
+
+      axios.get(`http://localhost:5000/search/${this.props.foodItem.recipe.label}`)
+        .then(res => {
+          this.setState({
+            currfoodPosts: res.data
+          });
+        })
+        .catch(err => "Error: " + err);
+    }
   }
 
   onChangeMinCalEntry(e) {
@@ -205,9 +221,17 @@ class App extends Component {
 
   render() {
     return(
-      <div>
+      <div className="big-body">
+        <div className="food-fun-header">
+          <h1 className="food-fun-title">FoodFun</h1>
+          <h3 className="food-fun-description">Discover, Share, and Review new Recipes!</h3>
+
+          <img className="edamam" src={edamam} alt="edamam badge"/>
+        </div>
+
         <div className="input-area">
           <input type="text"
+              id="food-search-bar"
               className="food-search-bar"
               placeholder="Enter Food"
               value={this.state.searchItem}
@@ -270,7 +294,8 @@ class App extends Component {
             <p className="filter-warning" id="filter-warning"></p>
           </div>
         </div>
-  
+        <br></br>
+        <br></br>
         <label id="search-results-text" className="search-results-text"></label>
         
         <div className="food-posts">

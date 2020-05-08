@@ -50,6 +50,17 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
+    width: 200px;
+}
+
+.view-full-button {
+    position: relative;
+    bottom: 30px;
+}
+
+.recipe-link {
+    position: absolute;
+    left: 0px;
 }
 
 li {

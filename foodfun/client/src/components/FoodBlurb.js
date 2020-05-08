@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import '.././stylesheets/FoodBlurb.css';
 import checkMark from ".././images/checkmark.png"
 import clockImg from "../images/clock.png";
+import FullPost from './FullPost';
 
 class FoodBlurb extends Component {
     constructor(props) {
         super(props);
 
         this.ingredientList = this.ingredientList.bind(this);
+        this.viewFullPost = this.viewFullPost.bind(this);
     }
 
     ingredientList() {
@@ -32,11 +35,19 @@ class FoodBlurb extends Component {
         return finalList;
     }
 
+    viewFullPost() {
+        ReactDOM.render(<FullPost foodItem={this.props.foodItem}/>, document.getElementById('root'));
+    }
+
     render() {
         return(
             <div className="food-item-container">
                 <div className="food-title-container">
                     <h1 className="food-title">{this.props.foodItem.recipe.label}</h1>
+                </div>
+
+                <div className="likes-container3">
+
                 </div>
 
                 <div className="time-container">
@@ -64,7 +75,8 @@ class FoodBlurb extends Component {
                 </div>
     
                 <div className="click-here-link">
-                    <a href={this.props.foodItem.recipe.url}
+                    <button className="view-full-button"onClick={this.viewFullPost}>View Full Food Post</button>
+                    <a className="recipe-link" href={this.props.foodItem.recipe.url}
                         target="_blank">Click Here for Full Recipe!</a>
                 </div>
     

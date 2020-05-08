@@ -1,0 +1,135 @@
+.full-post-body {
+    position: relative;
+    margin-top: 20px;
+    width: 90%;
+    height: 100%;
+    background-color: floralwhite;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.fp-image {
+    width: 30%;
+    height: 400px;
+    border-radius: 70px;
+    margin-right: 40px;
+}
+
+.fp-ingredient-list {
+    position: absolute;
+    left: 32%;
+    top: 15%;
+}
+
+.fp-ing-item {
+    font-size: 15px;
+}
+
+.fp-cal-fat-info {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+.fp-cal-label {
+    margin-bottom: -10px;
+    font-size: large;
+}
+
+.fp-fat-label {
+    margin-bottom: -10px;
+    font-size: large;
+}
+
+.fp-ps-label {
+    color: gray;
+}
+
+.fp-time-container {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 5%;
+    right: 15%;
+    width: 9%;
+}
+
+.fp-time-image {
+    position: relative;
+    margin-right: 5px;
+    top: 15px;
+    width: 30px;
+    height: 30px;
+}
+
+.fp-time-label {
+    font-size: large;
+}
+
+.fp-click-here-link {
+    position: relative;
+    margin-top: 10px;
+}
+
+.fp-recipe-link {
+    font-size: large;
+}
+
+.fp-health-label-container {
+    position: absolute;
+    right: 2%;
+    top: 30%;
+}
+
+.fp-health-item {
+    font-size: large;
+}
+
+.fp-health-ul {
+    list-style-type: none;
+}
+
+.fp-like-container {
+    width: 5%;
+    position: absolute;
+    top: 5%;
+    left: 60%;
+}
+
+.fp-like {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+}
+
+.fp-dislike {
+    width: 40px;
+    height: 40px;
+}
+
+.numLikes {
+    margin-left: 17%;
+    display: inline;
+    margin-right: 40%;
+}
+
+.numDislikes {
+    display: inline;
+}
+
+.fp-comments-container {
+    padding: 10px;
+    position: relative;
+    left: 31%;
+    width:55%;
+    height: auto;
+    border: 2px solid gray;
+}
+
+.back-button {
+    position: absolute;
+    bottom: 10px;
+    width: 50px;
+    height: 50px;
+}
