@@ -91,31 +91,33 @@
 }
 
 .fp-like-container {
-    width: 5%;
+    width: 6%;
     position: absolute;
     top: 5%;
     left: 60%;
 }
 
 .fp-like {
-    width: 40px;
-    height: 40px;
+    width: 40%;
+    height: 40%;
     margin-right: 5px;
 }
 
 .fp-dislike {
-    width: 40px;
-    height: 40px;
+    width: 40%;
+    height: 40%;
 }
 
 .numLikes {
-    margin-left: 17%;
-    display: inline;
-    margin-right: 40%;
+    position: absolute;
+    bottom: -90%;
+    left: 15%;
 }
 
 .numDislikes {
-    display: inline;
+    position: absolute;
+    bottom: -90%;
+    right: 35%;
 }
 
 .fp-comments-container {
