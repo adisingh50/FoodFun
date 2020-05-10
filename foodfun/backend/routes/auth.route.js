@@ -3,16 +3,17 @@ const User = require('.././models/user.model');
 const {registerValidation, loginValidation} = require('.././validate');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('.././middleware/auth');
 
 router.route('/register').post((req, res) => {
     const validationRes = registerValidation(req.body);
 
-    if (validationRes.error) return res.status(400).json(validationRes.error.details[0].message);
+    if (validationRes.error) return res.json({error: validationRes.error.details[0].message});
     
     User.findOne({email: req.body.email})
         .then(match => {
             if (match) {
-                return res.status(400).json("The Email You Entered Already Exists");
+                return res.json({error: "The Email You Entered Already Exists"});
             } else {
                 //hash pw
                 var salt = bcrypt.genSaltSync(10); //level of complexity of hash
@@ -27,7 +28,7 @@ router.route('/register').post((req, res) => {
                 });
                 
                 newUser.save()
-                    .then(() => res.status(200).json("User Added: " + req.body.firstName))
+                    .then(() => res.status(200).json({person: match}))
                     .catch(err => res.status(400).json(err));
             }
         });
@@ -36,21 +37,41 @@ router.route('/register').post((req, res) => {
 router.route('/login').post((req, res) => {
     const validationRes = loginValidation(req.body);
 
-    if (validationRes.error) return res.status(400).json(validationRes.error.details[0].message);
-
+    if (validationRes.error) {
+        return res.json({
+            errors: validationRes.error.details[0].message, 
+            status: false,
+        });
+    }
+    
     User.findOne({email: req.body.email})
         .then(match => {
             if (match) {
                 if (bcrypt.compareSync(req.body.password, match.password)) {
                     const token = jwt.sign({_id: match._id}, process.env.TOKEN_SECRET);
-                    res.header('auth-token', token).status(200).json("Logged In!");
+
+                    res.header('auth-token', token).status(200).json({
+                        token: token,
+                        status: true,
+                        person: match
+                    });
                 } else {
-                    res.status(400).json("Invalid Password");
+                    res.json({
+                        errors: "Invalid Password",
+                        status: false
+                    });
                 }
             } else {
-                res.status(400).json("The Email You Entered Does Not Exist.");
+                res.json({
+                    errors: "The Email You Entered Does Not Exist.",
+                    status: false
+                });
             }
         });
 });
+
+router.route('/delete', auth, async (req, res) => {
+
+})
 
 module.exports = router;

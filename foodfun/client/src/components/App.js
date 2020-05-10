@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Component } from 'react';
-import './App.css';
+import '.././stylesheets/App.css';
 import axios from 'axios';
-import FoodBlurb from './components/FoodBlurb';
-import edamam from "./images/edamam.png"
+import FoodBlurb from './FoodBlurb';
+import edamam from ".././images/edamam.png";
+import user from ".././images/user.png";
 
 class App extends Component {
   constructor(props) {
@@ -226,6 +227,10 @@ class App extends Component {
           <h1 className="food-fun-title">FoodFun</h1>
           <h3 className="food-fun-description">Discover, Share, and Review new Recipes!</h3>
 
+          <div className="user-bar">
+            <img className="user-icon" src={user} alt="user-icon"/>
+            <p className="name-txt"><strong>{this.props.userLoggedIn.firstName}</strong></p>
+          </div>
           <img className="edamam" src={edamam} alt="edamam badge"/>
         </div>
 

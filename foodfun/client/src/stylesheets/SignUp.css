@@ -1,0 +1,11 @@
+.login-container {
+    position: relative;
+    width: 30%;
+    height: 30%;
+    border: 4px solid black;
+    background-color: wheat;
+    border-radius: 10px;
+    margin-left: 35%;
+    margin-top: 7%;
+    padding: 1%;
+}

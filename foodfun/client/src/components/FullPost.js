@@ -6,7 +6,7 @@ import checkMark from ".././images/checkmark.png"
 import likeButton from ".././images/likeButton.jpg";
 import dislikeButton from ".././images/dislikeButton.jpg";
 import backButton from ".././images/backButton.png";
-import App from ".././App";
+import App from "./App";
 import ReactDOM from 'react-dom';
 
 
@@ -58,7 +58,7 @@ class FullPost extends Component {
     }
 
     goBack() {
-        ReactDOM.render(<App foodItem={this.props.foodItem}/>, document.getElementById('root'));
+        ReactDOM.render(<App foodItem={this.props.foodItem} userLoggedIn={this.props.userLoggedIn}/>, document.getElementById('root'));
     }
 
     render() {

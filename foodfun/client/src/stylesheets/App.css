@@ -1,5 +1,5 @@
 body {
-  background: url('./images/foodfun_bg.jpg') no-repeat center fixed;
+  background: url('.././images/foodfun_bg.jpg') no-repeat center fixed;
   background-size: cover;
 
   padding: 20px;
@@ -22,8 +22,24 @@ body {
 
 .edamam {
   position: absolute;
-  top: 10%;
-  right: -5%;
+  top: 5%;
+  right: -7%;
+}
+
+.user-bar {
+  position: absolute;
+  top: 30%;
+  right: 2%;
+}
+
+.user-icon {
+  display: inline-block;
+  width: 30%;
+  height: 30%;
+  margin-right: 9%;
+}
+.name-txt {
+  display: inline-block;
 }
 
 .food-fun-header {

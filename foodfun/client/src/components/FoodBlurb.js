@@ -36,7 +36,7 @@ class FoodBlurb extends Component {
     }
 
     viewFullPost() {
-        ReactDOM.render(<FullPost foodItem={this.props.foodItem}/>, document.getElementById('root'));
+        ReactDOM.render(<FullPost foodItem={this.props.foodItem} userLoggedIn={this.props.userLoggedIn}/>, document.getElementById('root'));
     }
 
     render() {
