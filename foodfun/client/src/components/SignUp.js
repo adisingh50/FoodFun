@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Login from './Login';
 import axios from 'axios';
 import App from './App';
+import {Link,BrowserRouter as Router} from 'react-router-dom';
 
 class SignUp extends Component {
     constructor(props) {
@@ -175,7 +176,11 @@ class SignUp extends Component {
                         />
                     </div>
 
-                    <button className="gotoSignUp-btn"onClick={this.goToLogIn}>Already Registered? Log In</button>
+                    <Router>
+                        <Link to="/">
+                            <button className="gotoSignUp-btn" onClick={this.goToLogIn}>Already Registered? Log In</button>
+                        </Link>
+                    </Router>
                 </form>
             </div>
         )

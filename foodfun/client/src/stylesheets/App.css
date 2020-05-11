@@ -26,6 +26,20 @@ body {
   right: -7%;
 }
 
+.log-out-button {
+  position: absolute;
+  top: 80%;
+  right: 1%;
+}
+
+.main-image {
+  position: relative;
+  top: 13px;
+  margin-right: 2%;
+  width: 9%;
+  height: 9%;
+}
+
 .user-bar {
   position: absolute;
   top: 30%;

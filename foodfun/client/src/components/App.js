@@ -4,6 +4,12 @@ import axios from 'axios';
 import FoodBlurb from './FoodBlurb';
 import edamam from ".././images/edamam.png";
 import user from ".././images/user.png";
+import Cookies from "js-cookie";
+import {BrowserRouter as Router, Link} from 'react-router-dom';
+import Login from './Login';
+import ReactDOM from 'react-dom';
+import logo from '.././images/foodfun_logo.png';
+
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +32,7 @@ class App extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.getFoodItems = this.getFoodItems.bind(this);
     this.isInputNumber = this.isInputNumber.bind(this);
+    this.onLogOut = this.onLogOut.bind(this);
   }
 
   componentDidMount() {
@@ -78,6 +85,12 @@ class App extends Component {
     if (!(/[0-9]/.test(char))) {
       e.preventDefault();
     }
+  }
+
+  onLogOut() {
+    Cookies.set("login", "false")
+    Cookies.set("user_firstName", "");
+    ReactDOM.render(<Login/>, document.getElementById('root'));
   }
 
   onSubmit(){
@@ -224,14 +237,20 @@ class App extends Component {
     return(
       <div className="big-body">
         <div className="food-fun-header">
-          <h1 className="food-fun-title">FoodFun</h1>
+          <h1 className="food-fun-title"><img className="main-image" src={logo} alt="foodfun logo"/>FoodFun</h1>
           <h3 className="food-fun-description">Discover, Share, and Review new Recipes!</h3>
 
           <div className="user-bar">
             <img className="user-icon" src={user} alt="user-icon"/>
-            <p className="name-txt"><strong>{this.props.userLoggedIn.firstName}</strong></p>
+            <p className="name-txt"><strong>{Cookies.get("user_firstName")}</strong></p>
           </div>
           <img className="edamam" src={edamam} alt="edamam badge"/>
+
+          <Router>
+            <Link to="/">
+              <button className="log-out-button" onClick={this.onLogOut}>Log Out</button>
+            </Link>
+          </Router>
         </div>
 
         <div className="input-area">

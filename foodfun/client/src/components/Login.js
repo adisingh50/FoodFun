@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import SignUp from './SignUp';
 import App from './App';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Link} from 'react-router-dom';
+import AuthApi from './AuthApi';
+import Cookies from 'js-cookie';
 
 class Login extends Component {
     constructor(props) {
@@ -61,7 +63,9 @@ class Login extends Component {
                     w.innerHTML = errors;
                     return;
                 } else {
-                    w.innerHTML = "Logged In!"
+                    w.innerHTML = "Logged In!";
+                    Cookies.set("login", "true");
+                    Cookies.set("user_firstName", person.firstName);
                     ReactDOM.render(<App userLoggedIn={person}/>, document.getElementById('root'));
                 }
             });
@@ -75,9 +79,6 @@ class Login extends Component {
     render() {
         return (
                 <div className="login-container">
-                    <Router>
-                        <Routes/>
-                    </Router>
                     <h1 className="welcome-txt">Welcome to FoodFun!</h1>
                     <h3 className="desc-txt">A Place to Discover, Share, and Review Fun Recipes</h3>
 
@@ -113,20 +114,15 @@ class Login extends Component {
                             />
                         </div>
 
-                        <button className="gotoSignUp-btn"onClick={this.goToSignUp}>Not Registered? Sign Up!</button>
+                        <Router>
+                            <Link to='/signup'>
+                                <button onClick={this.goToSignUp}className="gotoSignUp-btn">Not Registered? Sign Up!</button>
+                            </Link>
+                        </Router>
                     </form>
                 </div>
         )
     }
-}
-
-const Routes = () => {
-    return (
-        <Switch>
-            <Route path='/login' component={Login}/>
-            <Route path='/home' component={App}/>
-        </Switch>
-    )
 }
 
 export default Login;
