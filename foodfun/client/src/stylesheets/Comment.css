@@ -1,0 +1,60 @@
+.comment-container {
+    width: 90%;
+    height: 10%;
+    position: relative;
+    padding: 2%;
+    margin-top: -2%;
+}
+
+.com-userIcon {
+    height: 100%;
+    width: 100%;
+}
+
+.com-iconContainer {
+    display: inline-block;
+    height: 6%;
+    width: 6%;
+    margin-right: 2%;
+}
+
+.com-textContainer {
+    display: inline-block;
+}
+
+.com-name {
+    position: absolute;
+    top: 2%;
+    left: 10%;
+    font-size: 90%;
+    margin-bottom: -4%;
+}
+
+.com-date {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    font-size: 80%;
+    margin-bottom: -4%;
+}
+
+.com-stars {
+    position: absolute;
+    left: 280%;
+    bottom: 30px;
+    font-size: 80%;
+    margin-bottom: -4%;
+}
+
+.com-message {
+    font-size: 90%;
+    position: absolute;
+    left: 10%;
+    top: 30%;
+}
+
+.hLine {
+    position: relative;
+    border-width: 2px;
+    background-color: wheat;
+}

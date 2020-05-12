@@ -66,6 +66,8 @@ class Login extends Component {
                     w.innerHTML = "Logged In!";
                     Cookies.set("login", "true");
                     Cookies.set("user_firstName", person.firstName);
+                    Cookies.set("user_lastName", person.lastName);
+                    Cookies.set("user_email", person.email);
                     ReactDOM.render(<App userLoggedIn={person}/>, document.getElementById('root'));
                 }
             });

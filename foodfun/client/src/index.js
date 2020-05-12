@@ -17,6 +17,7 @@ const Nav = () => {
         <Switch>
           <Route exact path="/signup" component={SignUp}/>
           <ProtectedRoute exact path='/home' component={App}/> 
+          <Route exact path ='/tempFP' component={FullPost}/>
           <ProtectedLogin exact path="/" component={Login}/> 
         </Switch>
       </Router>

@@ -21,6 +21,7 @@
     position: absolute;
     left: 32%;
     top: 15%;
+    margin-bottom: 2%;
 }
 
 .fp-ing-item {
@@ -135,4 +136,89 @@
     bottom: 10px;
     width: 50px;
     height: 50px;
+}
+
+.fp-comment-input {
+    width: 300%;
+    height: 25px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fp-postComment {
+    position: absolute;
+    top: 5%;
+    right: 8%;
+    width: 10%;
+    height: 25%;
+    background-color: rgba(74, 74, 202, 0.959);
+    color: white;
+    border-radius: 2px;
+    border: 2px solid rgba(74, 74, 202, 0.959);
+}
+
+
+
+
+
+
+.comment-container {
+    width: 90%;
+    height: 10%;
+    position: relative;
+    padding: 2%;
+    margin-top: -2%;
+}
+
+.fp-userIcon {
+    height: 100%;
+    width: 100%;
+}
+
+.fp-iconContainer {
+    display: inline-block;
+    height: 6%;
+    width: 6%;
+    margin-right: 2%;
+}
+
+.fp-textContainer {
+    display: inline-block;
+}
+
+.fp-name {
+    position: absolute;
+    top: 2%;
+    left: 10%;
+    font-size: 90%;
+    margin-bottom: -4%;
+}
+
+.com-date {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    font-size: 80%;
+    margin-bottom: -4%;
+}
+
+.fp-stars {
+    position: relative;
+    left: 90%;
+    bottom: 5px;
+    font-size: 80%;
+    margin-bottom: -4%;
+}
+
+.com-message {
+    font-size: 90%;
+    position: absolute;
+    left: 10%;
+    top: 30%;
+}
+
+.hLine {
+    position: relative;
+    border-width: 2px;
+    background-color: wheat;
 }

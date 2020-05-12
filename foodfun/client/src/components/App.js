@@ -36,11 +36,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (this.props.foodItem) { //only when we hit the back button from FullPost.js
+    if (this.props.ogSearchItem) { //only when we hit the back button from FullPost.js
       var s = document.getElementById('food-search-bar');
-      s.value = this.props.foodItem.recipe.label
+      s.value = this.props.ogSearchItem
 
-      axios.get(`http://localhost:5000/search/${this.props.foodItem.recipe.label}`)
+      axios.get(`http://localhost:5000/search/${this.props.ogSearchItem}`)
         .then(res => {
           this.setState({
             currfoodPosts: res.data
@@ -90,6 +90,8 @@ class App extends Component {
   onLogOut() {
     Cookies.set("login", "false")
     Cookies.set("user_firstName", "");
+    Cookies.set("user_lastName", "");
+    Cookies.set("user_email", "");
     ReactDOM.render(<Login/>, document.getElementById('root'));
   }
 
@@ -228,7 +230,7 @@ class App extends Component {
   getFoodItems() {
     var finalFoodList = [];
     this.state.currfoodPosts.map(food => {
-      finalFoodList.push(<FoodBlurb foodItem={food}/>)
+      finalFoodList.push(<FoodBlurb ogSearchItem={this.state.searchItem} foodItem={food} userLoggedIn={this.props.userLoggedIn}/>)
     });
     return finalFoodList;
   }

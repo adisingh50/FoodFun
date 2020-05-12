@@ -6,9 +6,13 @@ import checkMark from ".././images/checkmark.png"
 import likeButton from ".././images/likeButton.jpg";
 import dislikeButton from ".././images/dislikeButton.jpg";
 import backButton from ".././images/backButton.png";
+import userIcon from '.././images/user.png';
 import App from "./App";
 import ReactDOM from 'react-dom';
-
+import Comment from './Comment';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import StarRatingComponent from 'react-star-rating-component';
 
 class FullPost extends Component {
     constructor(props) {
@@ -17,15 +21,33 @@ class FullPost extends Component {
         this.state = {
             likes: 0,
             dislikes: 0,
-            comments: []
+            comments: [],
+            numStars: 0,
+            commentText: ''
         }
 
         this.ingredientList = this.ingredientList.bind(this);
         this.healthLabelList = this.healthLabelList.bind(this);
         this.onChangeLikes = this.onChangeLikes.bind(this);
         this.onChangeDislikes = this.onChangeDislikes.bind(this);
-        this.onChangeComments = this.onChangeComments.bind(this);
+        this.onChangeCommentText = this.onChangeCommentText.bind(this);
+        this.onStarClick = this.onStarClick.bind(this);
+        this.getComments = this.getComments.bind(this);
+        this.addComment = this.addComment.bind(this);
         this.goBack = this.goBack.bind(this);
+    }
+
+    componentDidMount() {
+        const foodNameForRequest = {
+            foodName: this.props.foodItem.recipe.label,
+        }
+        axios.post('http://localhost:5000/comment/viewFoodComments', foodNameForRequest)
+            .then(res => {
+                this.setState({
+                    comments: (res.data).reverse()
+                });
+            })
+            .catch(err => "Error: " + err);       
     }
 
     onChangeLikes() {
@@ -36,8 +58,48 @@ class FullPost extends Component {
 
     }
 
-    onChangeComments() {
+    onChangeCommentText(e) {
+        this.setState({
+            commentText: e.target.value
+        });
+    }
 
+    onStarClick(nextValue, prevValue, name) {
+        this.setState({
+            numStars: nextValue
+        });
+    }
+
+    addComment() {
+        if (this.state.commentText.trim() === '') return;
+        if (this.state.numStars === 0) return;
+        console.log(this.state.numStars);
+
+        const newComment = {
+            userFirstName: Cookies.get("user_firstName"),
+            userLastName: Cookies.get("user_lastName"),
+            userEmail: Cookies.get("user_email"),
+            foodName: this.props.foodItem.recipe.label,
+            numStars: this.state.numStars,
+            message: this.state.commentText
+        }
+        axios.post('http://localhost:5000/comment/post', newComment)
+            .then(res => {console.log("comment posted.")})
+            .catch(err => console.log("Error: " + err));
+        
+        this.setState({
+            commentText: '',
+            numStars: 0
+        });
+    }
+
+    getComments() {
+        var finalCommentList = [];
+
+        this.state.comments.map(comment => {
+            finalCommentList.push(<Comment comment={comment}/>);
+        });
+        return finalCommentList;
     }
 
     ingredientList() {
@@ -58,7 +120,7 @@ class FullPost extends Component {
     }
 
     goBack() {
-        ReactDOM.render(<App foodItem={this.props.foodItem} userLoggedIn={this.props.userLoggedIn}/>, document.getElementById('root'));
+        ReactDOM.render(<App  ogSearchItem={this.props.ogSearchItem} foodItem={this.props.foodItem} userLoggedIn={this.props.userLoggedIn}/>, document.getElementById('root'));
     }
 
     render() {
@@ -103,6 +165,7 @@ class FullPost extends Component {
                         <ul className="fp-health-ul">
                             {this.ingredientList()}
                         </ul>
+                        <br></br>
                     </div>
 
                     <div className="fp-click-here-link">
@@ -114,6 +177,33 @@ class FullPost extends Component {
 
                     <div className="fp-comments-container">
                         <h3>Comments:</h3>
+
+                        <div className="comment-container">
+                            <div className="fp-iconContainer">
+                                <img className="com-userIcon" src={userIcon} alt="user-icon"></img>
+                            </div>
+
+                            <div className="fp-textContainer">
+                                <p className="fp-name"><strong>{Cookies.get("user_firstName")} {Cookies.get("user_lastName")}</strong></p>
+                                <StarRatingComponent 
+                                    className="fp-stars" 
+                                    starCount={5}
+                                    value={this.state.numStars}
+                                    onStarClick={this.onStarClick}
+                                    starColor="#FF0000"
+                                />
+                                <textarea className="fp-comment-input" 
+                                        maxLength="150" 
+                                        onChange={this.onChangeCommentText}
+                                        placeholder="Type your comment...">
+                                        </textarea>
+                            </div>
+
+                            <button className="fp-postComment" onClick={this.addComment}>Comment</button>
+                            <hr className="hLine"/>
+                        </div>
+
+                        {this.getComments()}
                     </div>
                 </div>
             </div>
