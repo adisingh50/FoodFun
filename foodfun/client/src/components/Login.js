@@ -5,7 +5,6 @@ import axios from 'axios';
 import SignUp from './SignUp';
 import App from './App';
 import {BrowserRouter as Router, Link} from 'react-router-dom';
-import AuthApi from './AuthApi';
 import Cookies from 'js-cookie';
 
 class Login extends Component {
@@ -57,7 +56,7 @@ class Login extends Component {
         } 
         axios.post('http://localhost:5000/auth/login', loginRequester)
             .then(res => {
-                const {errors, status, person} = res.data;
+                const {errors, person} = res.data;
                 
                 if (errors) {
                     w.innerHTML = errors;

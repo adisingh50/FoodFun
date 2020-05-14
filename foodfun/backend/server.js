@@ -32,9 +32,13 @@ connection.once('open', () => {
 const searchRouter = require('./routes/search.route');
 const authRouter = require('./routes/auth.route');
 const commentRouter = require('./routes/comment.route');
+const likeRouter = require('./routes/like.route');
+const dislikeRouter = require('./routes/dislike.route');
 app.use('/search', searchRouter);
 app.use('/auth', authRouter);
 app.use('/comment', commentRouter);
+app.use('/like', likeRouter);
+app.use('/dislike', dislikeRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port: ${PORT}`);

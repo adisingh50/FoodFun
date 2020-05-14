@@ -3,8 +3,8 @@ import '.././stylesheets/FullPost.css';
 import tempIMG from '.././images/foodfun_bg.jpg';
 import clockImg from '.././images/clock.png';
 import checkMark from ".././images/checkmark.png"
-import likeButton from ".././images/likeButton.jpg";
-import dislikeButton from ".././images/dislikeButton.jpg";
+import likeButton from ".././images/likeButton.png";
+import dislikeButton from ".././images/dislikeButton.png";
 import backButton from ".././images/backButton.png";
 import userIcon from '.././images/user.png';
 import App from "./App";
@@ -21,6 +21,8 @@ class FullPost extends Component {
         this.state = {
             likes: 0,
             dislikes: 0,
+            likeSelected: false,
+            dislikeSelected: false, 
             comments: [],
             numStars: 0,
             commentText: ''
@@ -47,15 +49,164 @@ class FullPost extends Component {
                     comments: (res.data).reverse()
                 });
             })
-            .catch(err => "Error: " + err);       
+            .catch(err => console.log("Error: " + err));
+            
+        const getLikesRequest = {
+            foodName: this.props.foodItem.recipe.label,
+            foodCalories: this.props.foodItem.recipe.calories
+        }
+
+        axios.post('http://localhost:5000/like/viewFoodLikes', getLikesRequest)
+            .then(res => {
+                if (res.data) {
+                    this.setState({
+                        likes: res.data.numLikes
+                    });
+                } else {
+                    this.setState({
+                        likes: 0
+                    });
+                }
+            })
+            .catch(err => console.log("Error: " + err));
+
+        axios.post('http://localhost:5000/dislike/viewFoodDislikes', getLikesRequest) 
+            .then(res => {
+                if (res.data) {
+                    this.setState({
+                        dislikes: res.data.numDislikes
+                    });
+                } else {
+                    this.setState({
+                        dislikes: 0
+                    });
+                }
+            })
+            .catch(err => console.log("Error: " + err));
     }
 
     onChangeLikes() {
+        if (!this.state.likeSelected) {
+            this.setState({
+                likeSelected: true
+            });
 
+            const removeDislikeRequest = {
+                foodName: this.props.foodItem.recipe.label,
+                foodCalories: this.props.foodItem.recipe.calories
+            }
+
+            if (this.state.dislikeSelected) {
+                axios.post('http://localhost:5000/dislike/removeFoodDislike', removeDislikeRequest)
+                    .then(res => {
+                        var currDislikes = this.state.dislikes;
+                        this.setState({
+                            dislikes: currDislikes - 1
+                        });
+                    })
+                    .catch(err => console.log("Error: " + err));
+
+                this.setState({
+                    dislikeSelected: false
+                });
+            }
+
+            const addLikeRequest = {
+                foodName: this.props.foodItem.recipe.label,
+                foodCalories: this.props.foodItem.recipe.calories,
+                userFirstName: Cookies.get("user_firstName"),
+                userLastName: Cookies.get("user_lastName"),
+                userEmail: Cookies.get("user_email")
+            }
+
+            axios.post('http://localhost:5000/like/addFoodLike', addLikeRequest)
+                .then(res => {
+                    var currLikes = this.state.likes;
+                    this.setState({
+                        likes: currLikes + 1
+                    });
+                })
+                .catch(err => console.log("Error: " + err));
+        } else {
+            this.setState({
+                likeSelected: false
+            });
+
+            const removeLikeRequest = {
+                foodName: this.props.foodItem.recipe.label,
+                foodCalories: this.props.foodItem.recipe.calories
+            }
+            axios.post('http://localhost:5000/like/removeFoodLike', removeLikeRequest)
+                .then(res => {
+                    var currLikes = this.state.likes;
+                    this.setState({
+                        likes: currLikes - 1
+                    });
+                })
+                .catch(err => console.log("Error: " + err));
+        }
     }
 
     onChangeDislikes() {
+        if (!this.state.dislikeSelected) {
+            this.setState({
+                dislikeSelected: true
+            });
 
+            const removeLikeRequest = {
+                foodName: this.props.foodItem.recipe.label,
+                foodCalories: this.props.foodItem.recipe.calories
+            }
+
+            if (this.state.likeSelected) {
+                axios.post('http://localhost:5000/like/removeFoodLike', removeLikeRequest)
+                    .then(res => {
+                        var currLikes = this.state.likes;
+                        this.setState({
+                            likes: currLikes - 1
+                        });
+                    })
+                    .catch(err => console.log("Error: " + err));
+                    
+                this.setState({
+                    likeSelected: false
+                });
+            }
+
+            const addDislikeRequest = {
+                foodName: this.props.foodItem.recipe.label,
+                foodCalories: this.props.foodItem.recipe.calories,
+                userFirstName: Cookies.get("user_firstName"),
+                userLastName: Cookies.get("user_lastName"),
+                userEmail: Cookies.get("user_email")
+            }
+
+            axios.post('http://localhost:5000/dislike/addFoodDislike', addDislikeRequest)
+                .then(res => {
+                    var currDislikes = this.state.dislikes;
+                    this.setState({
+                        dislikes: currDislikes + 1
+                    });
+                })
+                .catch(err => console.log("Error: " + err));
+        } else {
+            this.setState({
+                dislikeSelected: false
+            });
+
+            const removeDislikeRequest = {
+                foodName: this.props.foodItem.recipe.label,
+                foodCalories: this.props.foodItem.recipe.calories
+            }
+            axios.post('http://localhost:5000/dislike/removeFoodDislike', removeDislikeRequest)
+                .then(res => {
+                    var currDislikes = this.state.dislikes;
+                    this.setState({
+                        dislikes: currDislikes - 1
+                    });
+                })
+                .catch(err => console.log("Error: " + err));
+        }
     }
 
     onChangeCommentText(e) {
@@ -84,13 +235,16 @@ class FullPost extends Component {
             message: this.state.commentText
         }
         axios.post('http://localhost:5000/comment/post', newComment)
-            .then(res => {console.log("comment posted.")})
+            .then(res => {
+                console.log("comment posted.");
+                this.setState({
+                    commentText: '',
+                    numStars: 0
+                });
+            })
             .catch(err => console.log("Error: " + err));
         
-        this.setState({
-            commentText: '',
-            numStars: 0
-        });
+        
     }
 
     getComments() {

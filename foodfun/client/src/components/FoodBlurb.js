@@ -4,13 +4,56 @@ import '.././stylesheets/FoodBlurb.css';
 import checkMark from ".././images/checkmark.png"
 import clockImg from "../images/clock.png";
 import FullPost from './FullPost';
+import likeButton from '.././images/likeButton.png';
+import dislikeButton from '.././images/dislikeButton.png';
+import axios from 'axios';
 
 class FoodBlurb extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            numLikes: 0,
+            numDislikes: 0
+        }
+
         this.ingredientList = this.ingredientList.bind(this);
         this.viewFullPost = this.viewFullPost.bind(this);
+    }
+
+    componentDidMount() {
+        const getLikesRequest = {
+            foodName: this.props.foodItem.recipe.label,
+            foodCalories: this.props.foodItem.recipe.calories
+        }
+
+        axios.post('http://localhost:5000/like/viewFoodLikes', getLikesRequest)
+            .then(res => {
+                if (res.data) {
+                    this.setState({
+                        numLikes: res.data.numLikes
+                    });
+                } else {
+                    this.setState({
+                        numLikes: 0
+                    });
+                }
+            })
+            .catch(err => console.log("Error: " + err));
+        
+        axios.post('http://localhost:5000/dislike/viewFoodDislikes', getLikesRequest) 
+            .then(res => {
+                if (res.data) {
+                    this.setState({
+                        numDislikes: res.data.numDislikes
+                    });
+                } else {
+                    this.setState({
+                        numDislikes: 0
+                    });
+                }
+            })
+            .catch(err => console.log("Error: " + err));
     }
 
     ingredientList() {
@@ -78,6 +121,14 @@ class FoodBlurb extends Component {
                     <button className="view-full-button"onClick={this.viewFullPost}>View Full Food Post</button>
                     <a className="recipe-link" href={this.props.foodItem.recipe.url}
                         target="_blank">Click Here for Full Recipe!</a>
+                </div>
+
+                <div className="like-dislike-preview">
+                    <img className="like-preview"src={likeButton} alt="like-button"/>
+                    <p className="num-like-preview">{this.state.numLikes}</p>
+
+                    <img className="dislike-preview" src={dislikeButton} alt="dislike-button"/>
+                    <p className="num-dislike-preview">{this.state.numDislikes}</p>
                 </div>
     
                 <div className="health-label-container">

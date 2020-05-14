@@ -266,7 +266,7 @@ class App extends Component {
   
           <div className="sortby-container">
             <div className="sortby-options">
-              <p>Sort By (Low - High): </p>
+              <p className="sort-txt">Sort By (Low - High): </p>
                 <div>
                   <input type="radio" id="calories-option" name="sortby-group" value="calories"></input>
                   <label className="sortby-label" for="calories-option">Calories</label>
@@ -289,7 +289,7 @@ class App extends Component {
 
           <div className="filter-container">
             <div className="filter-options">
-              <p>Filter: </p>
+              <p className="filter-txt">Filter: </p>
                 <div>
                   <input type="checkbox" id="calories" name="filter-group"></input>
                   <label className="filter-label"for="calories">Calories: MIN
