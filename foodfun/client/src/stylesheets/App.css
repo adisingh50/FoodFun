@@ -29,9 +29,17 @@ body {
 
 .log-out-button {
   position: absolute;
-  top: 80%;
+  bottom: 1%;
   right: 1%;
-  width: 14%;
+  width: 80px;
+  background-color: grey;
+  color: white;
+  border: 1px solid grey;
+  border-radius: 10%;
+}
+
+.log-out-button:hover {
+  color: firebrick;
 }
 
 .main-image {
@@ -99,9 +107,14 @@ body {
   float: left;
 }
 
+.search-button:hover {
+  border: 2px solid black;
+}
+
 .food-posts {
   display: flex;
   flex-flow: row wrap;
+  width: 95%;
 }
 
 .search-results-text {
@@ -137,10 +150,16 @@ body {
   width: fit-content;
   margin-top: 5px;
   font-size: 80%;
+  background-color: white;
+  border: 1px solid grey;
+}
+
+.sortby-button:hover {
+  border: 2px solid black;
 }
 
 .sort-txt {
-  font-size: 95%;
+  font-size: 85%;
 }
 
 .filter-txt {
@@ -148,12 +167,12 @@ body {
 }
 
 .filter-container {
-  padding: 2%;
+  padding: 1%;
   background-color: floralwhite;
   position: absolute;
-  bottom: -50%;
+  bottom: -46%;
   right: 0px;
-  width: 40%;
+  width: 60%;
   height: auto;
   border: 2px solid gray;
   border-radius: 10px;

@@ -5,7 +5,7 @@ import StarRatingComponent from 'react-star-rating-component';
 
 const Comment = (props) => {
     const formatDate = () => {
-        var d = new Date(props.comment.date);
+        var d = new Date(props.comment.datePosted);
         var stringForm = d.toString();
         var dateFinal = stringForm.substring(0, 15);
         var timeFinal = convertToStandard(stringForm.substring(16, 21));

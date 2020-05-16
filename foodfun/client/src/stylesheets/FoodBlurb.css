@@ -1,7 +1,7 @@
 .food-item-container {
     background-color: wheat;
-    width: 600px;
-    height: 500px;
+    width: 40%;
+    height: 450px;
     border-radius: 20px;
     border: 2px solid black;
     padding: 10px;
@@ -10,11 +10,12 @@
 }
 
 .food-title-container {
-    width: 70%;
+    width: 65%;
 }
 
 .food-title {
     text-align: left;
+    font-size: 150%;
 }
 
 .calorie-fat-container {
@@ -33,9 +34,10 @@
 .image-container {
     display: inline-block;
     float: left;
-    width: 40%;
-    height: 60%;
-    margin-right: 20px;
+    width: 30%;
+    height: 30%;
+    margin-bottom: 5%;
+    margin-right: 2%;
 }
 
 .ingredients-container {
@@ -46,16 +48,33 @@
     width: 55%;
 }
 
+.ing-item {
+    font-size: 80%;
+}
+
+.ing-etc-item {
+    font-size: 80%;
+}
+
 .click-here-link {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 1%;
+    left: 10px;
     width: 200px;
+    margin-top: 2%;
 }
 
 .view-full-button {
     position: relative;
     bottom: 30px;
+    background-color: teal;
+    color: white;
+    border: 2px solid teal;
+    border-radius: 5px;
+}
+
+.view-full-button:hover {
+    color: black;
 }
 
 .recipe-link {
@@ -69,17 +88,18 @@ li {
 
 .health-label-container {
     position: absolute;
-    right: 50px;
+    right: 20px;
     bottom: 5px;
 }
 
 .health-list-item {
-    font-size: 12px;
+    font-size: 10px;
+    margin-bottom: -2%;
 }
 
 .check-image {
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 13px;
 }
 
 .health-ul {
@@ -105,8 +125,8 @@ li {
     text-align: center;
     width: 17%;
     position: absolute;
-    top: 30px;
-    right: 150px;
+    top: 17%;
+    right: 7%;
 }
 .time-image {
     position: relative;

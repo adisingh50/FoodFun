@@ -6,10 +6,11 @@ const commentSchema = new Schema({
     userLastName: {type: String, required: true},
     userEmail: {type: String, required: true},
     foodName: {type: String, required: true},
+    foodCalories: {type: Number, required: true},
     numStars: {type: Number, required: true},
     message: {type: String, required: true},
-    date: {type: Date, default: Date.now()}
+    datePosted: {type: Date}
 });
 
-const foodComment = mongoose.model('foodComment', commentSchema);
-module.exports = foodComment;
+const fComment = mongoose.model('fComment', commentSchema);
+module.exports = fComment;

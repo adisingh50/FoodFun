@@ -13,47 +13,58 @@ class FoodBlurb extends Component {
         super(props);
 
         this.state = {
-            numLikes: 0,
-            numDislikes: 0
+            tempNumLikes: 0,
+            tempNumDislikes: 0
         }
 
         this.ingredientList = this.ingredientList.bind(this);
         this.viewFullPost = this.viewFullPost.bind(this);
+        this.getFoodLikes = this.getFoodLikes.bind(this);
+        this.getFoodDislikes = this.getFoodDislikes.bind(this);
     }
 
-    componentDidMount() {
-        const getLikesRequest = {
+    getFoodLikes() {
+        const customFoodLikeRequest = {
             foodName: this.props.foodItem.recipe.label,
             foodCalories: this.props.foodItem.recipe.calories
         }
 
-        axios.post('http://localhost:5000/like/viewFoodLikes', getLikesRequest)
+        axios.post('http://localhost:5000/like/viewFoodLikes', customFoodLikeRequest)
             .then(res => {
                 if (res.data) {
                     this.setState({
-                        numLikes: res.data.numLikes
+                        tempNumLikes: res.data.numLikes
                     });
                 } else {
                     this.setState({
-                        numLikes: 0
-                    });
+                        tempNumLikes: 0
+                    })
                 }
             })
             .catch(err => console.log("Error: " + err));
-        
-        axios.post('http://localhost:5000/dislike/viewFoodDislikes', getLikesRequest) 
+        return this.state.tempNumLikes;
+    }
+
+    getFoodDislikes() {
+        const customFoodDislikeRequest = {
+            foodName: this.props.foodItem.recipe.label,
+            foodCalories: this.props.foodItem.recipe.calories
+        }
+
+        axios.post('http://localhost:5000/dislike/viewFoodDislikes', customFoodDislikeRequest)
             .then(res => {
                 if (res.data) {
                     this.setState({
-                        numDislikes: res.data.numDislikes
+                        tempNumDislikes: res.data.numDislikes
                     });
                 } else {
                     this.setState({
-                        numDislikes: 0
-                    });
+                        tempNumDislikes: 0
+                    })
                 }
             })
             .catch(err => console.log("Error: " + err));
+        return this.state.tempNumDislikes;
     }
 
     ingredientList() {
@@ -67,10 +78,10 @@ class FoodBlurb extends Component {
             bulletCount++;
 
             if (keepRunning) {
-                if (charCount <= 530 && bulletCount < 12) {
-                    finalList.push(<li>{ing}</li>)
+                if (charCount <= 450 && bulletCount < 10) {
+                    finalList.push(<li className="ing-item">{ing}</li>)
                 } else {
-                    finalList.push(<li>etc...</li>);
+                    finalList.push(<li className="ing-etc-item">etc...</li>);
                     keepRunning = false;
                 }
             }
@@ -87,10 +98,6 @@ class FoodBlurb extends Component {
             <div className="food-item-container">
                 <div className="food-title-container">
                     <h1 className="food-title">{this.props.foodItem.recipe.label}</h1>
-                </div>
-
-                <div className="likes-container3">
-
                 </div>
 
                 <div className="time-container">
@@ -125,10 +132,10 @@ class FoodBlurb extends Component {
 
                 <div className="like-dislike-preview">
                     <img className="like-preview"src={likeButton} alt="like-button"/>
-                    <p className="num-like-preview">{this.state.numLikes}</p>
+                    <p className="num-like-preview">{this.getFoodLikes()}</p>
 
                     <img className="dislike-preview" src={dislikeButton} alt="dislike-button"/>
-                    <p className="num-dislike-preview">{this.state.numDislikes}</p>
+                    <p className="num-dislike-preview">{this.getFoodDislikes()}</p>
                 </div>
     
                 <div className="health-label-container">

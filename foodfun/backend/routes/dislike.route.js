@@ -45,7 +45,7 @@ router.route('/removeFoodDislike').post((req, res) => {
                     .then(() => res.status(200).json("Food Dislike Decremented"))
                     .catch(err => res.status(400).json("Error: " + err));
             }
-        });
+        }).catch(err => res.json("Error: " + err));
 });
 
 module.exports = router;

@@ -21,7 +21,7 @@ class App extends Component {
       minCalEntry: '',
       maxCalEntry: '',
       minTimeEntry: '',
-      maxTimeEntry: ''
+      maxTimeEntry: '',
     }
     this.onChangeSearchItem = this.onChangeSearchItem.bind(this);
     this.onChangeMinCalEntry = this.onChangeMinCalEntry.bind(this);
@@ -149,7 +149,7 @@ class App extends Component {
         }
       }
       fw.innerHTML = "";
-      x.innerHTML ="Search Results for: " + this.state.searchItem;
+      x.innerHTML ="Search Results for: '" + this.state.searchItem + "' ";
       x.style.color = "black";
 
       const filterRequest = {
@@ -229,9 +229,11 @@ class App extends Component {
 
   getFoodItems() {
     var finalFoodList = [];
+    
     this.state.currfoodPosts.map(food => {
       finalFoodList.push(<FoodBlurb ogSearchItem={this.state.searchItem} foodItem={food} userLoggedIn={this.props.userLoggedIn}/>)
     });
+
     return finalFoodList;
   }
 
@@ -259,14 +261,16 @@ class App extends Component {
           <input type="text"
               id="food-search-bar"
               className="food-search-bar"
-              placeholder="Enter Food"
+              placeholder="Search a Recipe"
               value={this.state.searchItem}
               onChange={this.onChangeSearchItem}/>
           <button className="search-button" onClick={this.onSubmit}>Search</button>
   
           <div className="sortby-container">
             <div className="sortby-options">
-              <p className="sort-txt">Sort By (Low - High): </p>
+              <div className="sort-by-header">
+                <p className="sort-txt">Sort By (Low - High): </p>
+              </div>
                 <div>
                   <input type="radio" id="calories-option" name="sortby-group" value="calories"></input>
                   <label className="sortby-label" for="calories-option">Calories</label>

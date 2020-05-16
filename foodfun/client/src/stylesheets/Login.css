@@ -33,6 +33,12 @@
     position: absolute;
     right: 3%;
     bottom: 5%;
+    background-color: white;
+    border: 1px solid white;
+}
+
+.gotoSignUp-btn:hover {
+    border: 2px solid black;
 }
 
 .login-button {
@@ -40,6 +46,11 @@
     border-radius: 7px;
     border: 1px solid black;
     font-size: large;
+    color: black;
+}
+
+.login-button:hover {
+    border: 2px solid black;
 }
 
 .login-input {
@@ -62,3 +73,4 @@ label {
     font-size: 14px;
     color: red;
 }
+

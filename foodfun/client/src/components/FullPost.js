@@ -42,6 +42,7 @@ class FullPost extends Component {
     componentDidMount() {
         const foodNameForRequest = {
             foodName: this.props.foodItem.recipe.label,
+            foodCalories: this.props.foodItem.recipe.calories
         }
         axios.post('http://localhost:5000/comment/viewFoodComments', foodNameForRequest)
             .then(res => {
@@ -85,11 +86,26 @@ class FullPost extends Component {
             .catch(err => console.log("Error: " + err));
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.comments != this.state.comments) {
+            axios.post('http://localhost:5000/comment/viewFoodComments', {foodName: this.props.foodItem.recipe.label, foodCalories: this.props.foodItem.recipe.calories})
+                .then(res => {
+                    this.setState({
+                        comments: (res.data).reverse()
+                    });
+                })
+                .catch(err => console.log("Error: " + err));
+        }
+    }
+
     onChangeLikes() {
+        //if likes weren't already selected
         if (!this.state.likeSelected) {
             this.setState({
                 likeSelected: true
             });
+            var likeImgID = document.getElementById("fp-like");
+            likeImgID.style.cssText = "border: 1px solid black";
 
             const removeDislikeRequest = {
                 foodName: this.props.foodItem.recipe.label,
@@ -109,6 +125,8 @@ class FullPost extends Component {
                 this.setState({
                     dislikeSelected: false
                 });
+                var dislikeImgID = document.getElementById("fp-dislike");
+                dislikeImgID.style.cssText = "";
             }
 
             const addLikeRequest = {
@@ -128,9 +146,12 @@ class FullPost extends Component {
                 })
                 .catch(err => console.log("Error: " + err));
         } else {
+            //if likes were selected
             this.setState({
                 likeSelected: false
             });
+            var likeImgID = document.getElementById("fp-like");
+            likeImgID.style.cssText = "";
 
             const removeLikeRequest = {
                 foodName: this.props.foodItem.recipe.label,
@@ -148,10 +169,13 @@ class FullPost extends Component {
     }
 
     onChangeDislikes() {
+        //if dislikes weren't already selected
         if (!this.state.dislikeSelected) {
             this.setState({
                 dislikeSelected: true
             });
+            var dislikeImgID = document.getElementById("fp-dislike");
+            dislikeImgID.style.cssText = "border: 1px solid black";
 
             const removeLikeRequest = {
                 foodName: this.props.foodItem.recipe.label,
@@ -171,6 +195,8 @@ class FullPost extends Component {
                 this.setState({
                     likeSelected: false
                 });
+                var likeImgID = document.getElementById("fp-like");
+                likeImgID.style.cssText = "";
             }
 
             const addDislikeRequest = {
@@ -190,9 +216,12 @@ class FullPost extends Component {
                 })
                 .catch(err => console.log("Error: " + err));
         } else {
+            //if likes were already selected
             this.setState({
                 dislikeSelected: false
             });
+            var dislikeImgID = document.getElementById("fp-dislike");
+            dislikeImgID.style.cssText = "";
 
             const removeDislikeRequest = {
                 foodName: this.props.foodItem.recipe.label,
@@ -224,27 +253,27 @@ class FullPost extends Component {
     addComment() {
         if (this.state.commentText.trim() === '') return;
         if (this.state.numStars === 0) return;
-        console.log(this.state.numStars);
 
         const newComment = {
             userFirstName: Cookies.get("user_firstName"),
             userLastName: Cookies.get("user_lastName"),
             userEmail: Cookies.get("user_email"),
             foodName: this.props.foodItem.recipe.label,
+            foodCalories: this.props.foodItem.recipe.calories,
             numStars: this.state.numStars,
             message: this.state.commentText
         }
+        
         axios.post('http://localhost:5000/comment/post', newComment)
             .then(res => {
                 console.log("comment posted.");
-                this.setState({
-                    commentText: '',
-                    numStars: 0
-                });
             })
             .catch(err => console.log("Error: " + err));
-        
-        
+
+        this.setState({
+            commentText: '',
+            numStars: 0
+        });
     }
 
     getComments() {
@@ -290,8 +319,8 @@ class FullPost extends Component {
                     <img className="fp-image"src={this.props.foodItem.recipe.image} alt="food img here"></img>
 
                     <div className="fp-like-container">
-                        <img className="fp-like" src={likeButton} alt="like" onClick={this.onChangeLikes}></img>
-                        <img className="fp-dislike" src={dislikeButton} alt="dislike" onClick={this.onChangeDislikes}></img>
+                        <img id="fp-like" className="fp-like" src={likeButton} alt="like" onClick={this.onChangeLikes}></img>
+                        <img id="fp-dislike" className="fp-dislike" src={dislikeButton} alt="dislike" onClick={this.onChangeDislikes}></img>
 
                         <p className="numLikes">{this.state.likes}</p>
                         <p className="numDislikes">{this.state.dislikes}</p>
@@ -347,7 +376,8 @@ class FullPost extends Component {
                                     starColor="#FF0000"
                                 />
                                 <textarea className="fp-comment-input" 
-                                        maxLength="150" 
+                                        maxLength="150"
+                                        value={this.state.commentText} 
                                         onChange={this.onChangeCommentText}
                                         placeholder="Type your comment...">
                                         </textarea>
