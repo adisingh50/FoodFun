@@ -35,7 +35,7 @@
     display: inline-block;
     float: left;
     width: 30%;
-    height: 30%;
+    height: 40%;
     margin-bottom: 5%;
     margin-right: 2%;
 }
@@ -126,7 +126,7 @@ li {
     width: 17%;
     position: absolute;
     top: 17%;
-    right: 7%;
+    right: 3%;
 }
 .time-image {
     position: relative;
